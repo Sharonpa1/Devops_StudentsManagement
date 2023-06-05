@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Students Management System</title>
+  <style>
+    h1, h2 {
+      color: orange;
+      font-weight: bold;
+    }
+    label {
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body style="background: rgb(37, 37, 37);">
+  <br>
+  <h1 align="center">Students Management System</h1>
+  <br><br><br>
+  <table align="center" style="width: 1000px; height: 300px; border: 1px solid lightgray;">
+    <td style="width: 500px; height: 300px; border: 1px solid lightgray;">
+      <h2 align="center">Add New Student</h2>
+      <form align="center" id="register-form">
+        <label for="name">Name:</label>
+        <input style="width: 100px; margin-left: 13px;" type="text" id="name" name="name" required><br><br>
+        <label for="exam1">Exam 1:</label>
+        <input style="width: 100px;" type="number" id="exam1" name="exam1" min="0" max="100" required><br><br>
+        <label for="exam2">Exam 2:</label>
+        <input style="width: 100px;" type="number" id="exam2" name="exam2" min="0" max="100" required><br><br>
+        <label for="exam3">Exam 3:</label>
+        <input style="width: 100px;" type="number" id="exam3" name="exam3" min="0" max="100" required><br><br>
+        <input type="submit" value="Submit">
+      </form>
+    </td>
+    <td style="width: 500px; height: 300px; border: 1px solid lightgray;">
+      <table>
+        <h2 align="center" style="margin-top: 0px;">Upload Students Excel File</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <input style="color:white; margin-left: 100px;" id="file" type="file" name="file" accept=".xlsx, .xls" required>
+          <input type="submit" value="Upload">
+        </form>
+        <h2 align="center" style="margin-top: 70px;">Download Students Excel File</h2>
+        <form action="/download" method="post" enctype="multipart/form-data">
+          <input style="margin-left: 200px;" type="submit" value="Download">
+        </form>
+      </table>
+    </td>
+  </table>
+ 
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const exam1 = document.getElementById('exam1').value;
+      const exam2 = document.getElementById('exam2').value;
+      const exam3 = document.getElementById('exam3').value;
+      
+      const data = {
+        name,
+        exam1,
+        exam2,
+        exam3
+      };
+      
+      fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(message => {
+        alert(message);
+        document.getElementById('register-form').reset();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/5b486b5d-0ffd-4fd9-ac43-53444440b202/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/DevopsProjectSharon",
+    "appService.deploySubpath": "."
+}
